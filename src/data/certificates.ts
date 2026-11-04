@@ -1,79 +1,66 @@
-import { CertificateData } from '../types/certificate';
+export interface CertificateRecord {
+  name: string;
+  course: string;
+  trainingCenter: string;
+  validFrom: string;
+  expiry: string;
+}
 
-const STORAGE_KEY = 'sha_certificates_database_v1';
-
-export const DEFAULT_CERTIFICATES: Record<string, CertificateData> = {
-  '311213179908': {
-    id: '311213179908',
-    holderName: 'Haseen Haider',
-    courseName: 'SHA HSFA CPR AED Course',
-    validFrom: 'July-15-2026',
-    expiryDate: 'July-15-2028',
-    trainingCenter: 'National Life Support Center - Riyadh',
-    instructorName: 'Certified SHA Instructor',
-    status: 'Valid',
+export const CERTIFICATES_DB: Record<string, CertificateRecord> = {
+  "311213179908": {
+    name: "Haseen Haider",
+    course: "SHA HSFA CPR AED Course",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "July-15-2026",
+    expiry: "July-15-2028"
   },
-  '311213179909': {
-    id: '311213179909',
-    holderName: 'Mohammed Abdullah Al-Shehri',
-    courseName: 'SHA BLS Provider',
-    validFrom: 'August-01-2026',
-    expiryDate: 'August-01-2028',
-    trainingCenter: 'King Fahad Medical City Center',
-    instructorName: 'Dr. Tariq Al-Otaibi',
-    status: 'Valid',
+  "311214179908": {
+    name: "Haseen Haider",
+    course: "SHA BLS Provider",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "July-15-2026",
+    expiry: "July-15-2028"
   },
-  '311213179910': {
-    id: '311213179910',
-    holderName: 'Fatimah Khalid Al-Mansoor',
-    courseName: 'SHA ACLS Provider',
-    validFrom: 'May-10-2026',
-    expiryDate: 'May-10-2028',
-    trainingCenter: 'Jeddah Heart & Life Support Center',
-    instructorName: 'Dr. Reem Al-Zahrani',
-    status: 'Valid',
+  "311213173997": {
+    name: "Sayed Kumail Hussain Sayed Ali Qasim",
+    course: "SHA HSFA CPR AED Course",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "Dec-15-2025",
+    expiry: "Dec-15-2027"
   },
+  "311214173977": {
+    name: "Sayed Kumail Hussain Sayed Ali Qasim",
+    course: "SHA BLS Provider",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "Dec-15-2025",
+    expiry: "Dec-15-2027"
+  },
+  "311213172585": {
+    name: "Syed Nadeem U Din Shah Syed Qayam U Din Shah",
+    course: "SHA HSFA CPR AED Course",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "Feb-14-2026",
+    expiry: "Feb-14-2028"
+  },
+  "311214172555": {
+    name: "Syed Nadeem U Din Shah Syed Qayam U Din Shah",
+    course: "SHA BLS Provider",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "Feb-14-2026",
+    expiry: "Feb-14-2028"
+  },
+  "311213178822": {
+    name: "Ahamed Ullah",
+    course: "SHA HSFA CPR AED Course",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "Feb-25-2026",
+    expiry: "Feb-25-2028"
+  },
+  "311214178802": {
+    name: "Ahamed Ullah",
+    course: "SHA BLS Provider",
+    trainingCenter: "Dar As Sihha Medical Center",
+    validFrom: "Feb-25-2026",
+    expiry: "Feb-25-2028"
+  }
 };
-
-/**
- * Loads all certificates, merging defaults with any custom ones stored in localStorage.
- */
-export function getAllCertificates(): Record<string, CertificateData> {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return { ...DEFAULT_CERTIFICATES };
-    }
-    const parsed = JSON.parse(raw);
-    return { ...DEFAULT_CERTIFICATES, ...parsed };
-  } catch (err) {
-    console.warn('Failed to parse certificates from localStorage:', err);
-    return { ...DEFAULT_CERTIFICATES };
-  }
-}
-
-/**
- * Saves or updates a certificate in localStorage.
- */
-export function saveCertificate(cert: CertificateData): void {
-  const current = getAllCertificates();
-  current[cert.id] = cert;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
-  } catch (err) {
-    console.error('Failed to save certificate:', err);
-  }
-}
-
-/**
- * Retrieves a certificate by ID.
- */
-export function getCertificateById(id: string): CertificateData | null {
-  const all = getAllCertificates();
-  const trimmed = id.trim();
-  if (all[trimmed]) {
-    return all[trimmed];
-  }
-  return null;
-}
-
