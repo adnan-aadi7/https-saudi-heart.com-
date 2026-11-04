@@ -6,6 +6,18 @@ export const App: React.FC = () => {
   const [isManualSearch, setIsManualSearch] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<{ text: string; color: string } | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  // Close menu on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Status helper (matching script.js)
   const getCertificateStatus = (expiryString: string): string => {
@@ -92,19 +104,135 @@ export const App: React.FC = () => {
       <div className="certificate-container">
         {/* Header */}
         <div className="logo-container">
-          <img
-            className="main-logo"
-            src="/img/logo.png"
-            alt="Logo"
-          />
-          <a href="#">
+          <a href="https://saudi-heart.com/" target="_blank" rel="noreferrer" title="Saudi Heart Association">
+            <img
+              className="main-logo"
+              src="/img/logo.png"
+              alt="Logo"
+            />
+          </a>
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle Navigation Menu"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
             <img
               className="icon-logo"
               src="/img/icon.png"
               alt="Menu"
             />
-          </a>
+          </button>
         </div>
+
+        {/* Functional Hamburger Drawer */}
+        {isMenuOpen && (
+          <div
+            className="nav-drawer-overlay"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <div
+              className="nav-drawer-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="nav-drawer-header">
+                <span className="nav-drawer-title">Navigation Menu</span>
+                <button
+                  type="button"
+                  className="nav-drawer-close"
+                  onClick={() => setIsMenuOpen(false)}
+                  aria-label="Close menu"
+                >
+                  &times;
+                </button>
+              </div>
+
+              <nav className="nav-drawer-links">
+                <a
+                  href="https://saudi-heart.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Home</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+                <a
+                  href="https://saudi-heart.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Courses</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+                <a
+                  href="https://saudi-heart.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Online Courses</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+                <a
+                  href="https://saudi-heart.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Training Centers</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+                <a
+                  href="https://saudi-heart.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Become Training Center</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+                <a
+                  href="#"
+                  className="active"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <span>Certificate Verification</span>
+                  <span style={{ fontSize: '11px', color: '#002b35', fontWeight: 'bold' }}>Active</span>
+                </a>
+                <a
+                  href="https://shacpr.org.sa/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>Browse for old CPR website</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+                <a
+                  href="https://saudi-heart.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span>For instructors and Coordinator</span>
+                  <span style={{ fontSize: '13px', color: '#999' }}>&rsaquo;</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        )}
 
         {/* Heading */}
         <div

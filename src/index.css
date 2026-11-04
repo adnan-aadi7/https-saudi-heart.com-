@@ -494,3 +494,114 @@ body {
         padding: 16px;
     }
 }
+
+/* =========================
+    HAMBURGER NAV DRAWER
+========================= */
+
+.nav-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+    display: flex;
+    justify-content: flex-end;
+    animation: drawerFadeIn 0.2s ease;
+}
+
+.nav-drawer-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 360px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 25px rgba(0, 0, 0, 0.18);
+    animation: drawerSlideIn 0.25s ease;
+}
+
+.nav-drawer-header {
+    padding: 22px 24px;
+    background: #002b35;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-drawer-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.nav-drawer-close {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-drawer-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-drawer-links {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    overflow-y: auto;
+}
+
+.nav-drawer-links a {
+    padding: 15px 24px;
+    font-size: 15px;
+    color: #2b3b44;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid #f0f2f3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.nav-drawer-links a:hover {
+    background: #f4f8f9;
+    color: #002b35;
+    padding-left: 28px;
+}
+
+.nav-drawer-links a.active {
+    color: #002b35;
+    font-weight: 700;
+    background: #eef6f8;
+    border-left: 4px solid #002b35;
+}
+
+@keyframes drawerFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes drawerSlideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
