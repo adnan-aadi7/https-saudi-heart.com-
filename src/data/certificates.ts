@@ -62,5 +62,12 @@ export const CERTIFICATES_DB: Record<string, CertificateRecord> = {
     trainingCenter: "Dar As Sihha Medical Center",
     validFrom: "Feb-25-2026",
     expiry: "Feb-25-2028"
+  },
+  "3326922354442": {
+    name: "Adnan Haider Jauhar Ali",
+    course: "SHA BLS Provider",
+    trainingCenter: "Alliance Infinite Inspection Training",
+    validFrom: "Jul-28-2025",
+    expiry: "Jul-28-2027"
   }
 };
